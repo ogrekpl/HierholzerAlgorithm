@@ -9,6 +9,10 @@ class DoubleLinkedList
         this.length = 0;
     }
 
+    /**
+     * Adds a new node to the head of the list
+     * @param {*} value node value
+     */
     addToHead(value) {
         const newNode = new MyNode(value);
         if(this.length === 0)
@@ -25,6 +29,9 @@ class DoubleLinkedList
         return newNode;
     }
 
+    /**
+     * Removes and returns the element from the head of the list
+     */
     popHead() {
         if(this.length === 0)
         {
@@ -48,6 +55,10 @@ class DoubleLinkedList
         return nodeToRemove;
     }
 
+    /**
+     * Adds a new node to the tail of the list
+     * @param {*} value node value 
+     */
     addToTail(value) {
         const newNode = new MyNode(value);
         if(this.length === 0)
@@ -66,6 +77,9 @@ class DoubleLinkedList
         return newNode;
     }
 
+    /**
+     * Removes and returns the element from the tail of the list
+     */
     popTail() {
         if(this.length === 0)
         {
@@ -91,7 +105,10 @@ class DoubleLinkedList
             return nodeToRemove;
         }
     }
-
+    /**
+     * Returns an element at the given index in the list
+     * @param {number} index index of the element to be returned
+     */
     get(index) {
         if(this.length === 0 || index < 0 || index >= this.length)
         {
@@ -126,7 +143,11 @@ class DoubleLinkedList
             return currentNode;
         }
     }
-
+    /**
+     * Sets the value of the element at the given index in the list
+     * @param {number} index 
+     * @param {*} value 
+     */
     set(index,value) {
         const updatedNode = this.get(index);
 
@@ -140,6 +161,11 @@ class DoubleLinkedList
         return null;
     }
 
+    /**
+     * Inserts an element at the given index inside the list
+     * @param {number} index 
+     * @param {*} value 
+     */
     insertAt(index, value) {
         if(index < 0 || index > this.length)
         {
@@ -168,7 +194,10 @@ class DoubleLinkedList
             return newNode;
         }
     }
-
+    /**
+     * Removes an element at the given index inside the list
+     * @param {number} index 
+     */
     removeAt(index) {
         if(this.length === 0 || index < 0 || index >= this.length) {
             return null;
@@ -196,6 +225,9 @@ class DoubleLinkedList
         }
     }
 
+    /**
+     * Prints the list in string format (console)
+     */
     printList() {
         let tempNode = this.head;
         let listString = "";

@@ -1,3 +1,6 @@
+/**
+ * Representation of the doubly linked list node
+ */
 class MyNode
 {
     constructor(value)
