@@ -54,7 +54,27 @@ class DoubleLinkedList
         this.length -= 1;
         return nodeToRemove;
     }
-
+    addToVertex(value, vertex)
+    {
+        const newNode = new MyNode(value);
+        newNode.next = vertex.next;
+        if(newNode.next !== null)
+        {
+            vertex.next.previous = newNode;
+        }
+        newNode.previous = vertex;
+        vertex.next = newNode;
+        this.length +=1;
+    }
+    removeVertex(vertex)
+    {
+        if (vertex.next !== null) vertex.next.previous = vertex.previous;
+        if (vertex.previous !== null) vertex.previous.next = vertex.next;
+        vertex.previous = null;
+        vertex.next = null;
+        vertex = null;
+        this.length -=1;
+    }
     /**
      * Adds a new node to the tail of the list
      * @param {*} value node value 
