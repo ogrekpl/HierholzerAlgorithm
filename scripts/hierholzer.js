@@ -41,13 +41,24 @@ function DFSaddCycle(start, current, position)
 
 function Hierholzer()
 {
+    // const G = [
+    //     [0,1,1,1,1,0],
+    //     [1,0,1,1,1,0],
+    //     [1,1,0,1,0,1],
+    //     [1,1,1,0,1,0],
+    //     [0,1,0,1,0,1],
+    //     [0,0,1,0,1,0]
+    // ];
     const G = [
-        [0,1,1,1,1,0],
-        [1,0,1,1,1,0],
-        [1,1,0,1,0,1],
-        [1,1,1,0,1,0],
-        [0,1,0,1,0,1],
-        [0,0,1,0,1,0]
+        [0,1,0,0,0,0,0,0,0],
+        [0,0,0,1,1,0,0,0,0],
+        [0,1,0,0,0,1,0,0,0],
+        [1,0,1,0,0,0,0,1,0],
+        [0,0,1,1,0,0,1,0,0],
+        [0,0,0,0,1,0,0,1,0],
+        [0,0,0,1,0,0,0,0,0],
+        [0,0,0,0,1,0,0,0,1],
+        [0,0,0,0,0,1,0,0,0],
     ];
     // If the argument isn't an array, throw exception
     if(!Array.isArray(G)) {
@@ -92,7 +103,7 @@ function Hierholzer()
     {
         for(let i=0; i<gLength; i++)
         {
-            if(G[p.value][i])
+            if(graph[p.value][i])
             {
                 for (let j=0; j<visited.length; j++) visited[j] = false;
                 DFSaddCycle(p.value, i, p);
