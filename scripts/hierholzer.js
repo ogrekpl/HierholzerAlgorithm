@@ -1,6 +1,7 @@
 var visited;
 var dList;
 var n;
+var stos;
 var graph;
 /**
  * @param start starting and ending vertex of the cycle 
@@ -11,7 +12,7 @@ function DFSaddCycle(start, current, position)
 {
     visited[current] = true;
     dList.addToVertex(current,position);
-
+    stos.push(current);
     position = position.next;
 
     for(let i=0; i < n; i++)
@@ -21,6 +22,7 @@ function DFSaddCycle(start, current, position)
             if (i == start)
             {
                 dList.addToVertex(start,position);
+                stos.push(start);
                 do
                 {
                     graph [position.value][position.next.value] = 0; // delete edges
@@ -36,30 +38,12 @@ function DFSaddCycle(start, current, position)
     }
     position = position.previous;
     dList.removeVertex(position.next);
+    stos.pop();
     return false;
 }
 
-function Hierholzer()
+function DirectedHierholzer(G)
 {
-    // const G = [
-    //     [0,1,1,1,1,0],
-    //     [1,0,1,1,1,0],
-    //     [1,1,0,1,0,1],
-    //     [1,1,1,0,1,0],
-    //     [0,1,0,1,0,1],
-    //     [0,0,1,0,1,0]
-    // ];
-    const G = [
-        [0,1,0,0,0,0,0,0,0],
-        [0,0,0,1,1,0,0,0,0],
-        [0,1,0,0,0,1,0,0,0],
-        [1,0,1,0,0,0,0,1,0],
-        [0,0,1,1,0,0,1,0,0],
-        [0,0,0,0,1,0,0,1,0],
-        [0,0,0,1,0,0,0,0,0],
-        [0,0,0,0,1,0,0,0,1],
-        [0,0,0,0,0,1,0,0,0],
-    ];
     // If the argument isn't an array, throw exception
     if(!Array.isArray(G)) {
         throw 'Parameter is not an array!';
@@ -94,6 +78,8 @@ function Hierholzer()
     graph = G;
     dList = new DoubleLinkedList();
     dList.addToHead(v1);
+    stos = new Array();
+    let cykle = new Array();
     visited = new Array(gLength);
     for(let i=0; i < visited.length; i++)
     {
@@ -106,9 +92,24 @@ function Hierholzer()
             if(graph[p.value][i])
             {
                 for (let j=0; j<visited.length; j++) visited[j] = false;
-                DFSaddCycle(p.value, i, p);
+                if(DFSaddCycle(p.value, i, p))
+                {
+                    let stos_pomocniczy = new Array();
+                    let pocz_cyklu = stos[stos.length-1];
+                    stos_pomocniczy[0] = pocz_cyklu;
+                    let temp = 0;
+                    while(stos.length != 0)
+                    {
+                        stos_pomocniczy[temp] = stos.pop();
+                        temp++;
+                    }
+                    stos_pomocniczy[temp] = pocz_cyklu;
+                    stos_pomocniczy = stos_pomocniczy.reverse();
+                    cykle.push(stos_pomocniczy);
+                    
+                }
             }
         }
     }
-    dList.printList();
+    return cykle;
 }

@@ -65,6 +65,7 @@ class DoubleLinkedList
         newNode.previous = vertex;
         vertex.next = newNode;
         this.length +=1;
+        return newNode;
     }
     removeVertex(vertex)
     {
@@ -72,8 +73,8 @@ class DoubleLinkedList
         if (vertex.previous !== null) vertex.previous.next = vertex.next;
         vertex.previous = null;
         vertex.next = null;
-        vertex = null;
         this.length -=1;
+        return vertex;
     }
     /**
      * Adds a new node to the tail of the list
