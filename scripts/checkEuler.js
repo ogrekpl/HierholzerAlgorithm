@@ -1,30 +1,117 @@
 /**
  * Checks if a graph is eulerian
- * @param adjacencyMatrix 2 dimensional array holding the adjacency matrix
+ * @param G 2 dimensional array holding the adjacency matrix
  * @return boolean is the graph eulerian
  */
-function checkEuler(adjacencyMatrix) {
-
-    // If the argument isn't an array, throw exception
-    if(!Array.isArray(adjacencyMatrix)) {
-        throw 'Parameter is not an array!';
+function checkEuler(G) {
+    // First we check if the parameter G is a valid adjacency matrix
+    if(!checkGraph(G)) {
+        throw "Parameter isn't a valid adjacency matrix!"
     }
 
-    let width = adjacencyMatrix.length;
-    let height = adjacencyMatrix[0].length
+    // We check if the graph is directed or undirected so we can use the right algorithm
+    let undirected = isUndirected(G);
 
-    // If the argument isn't a square array, throw exception
+    if(undirected) {
+        return checkEulerUndirected(G);
+    }
+    else {
+        return checkEulerDirected(G);
+    }
+}
+
+/**
+ * Checks if G is a valid adjacency matrix for a graph
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @return boolean is the adjacency matrix valid
+ */
+function checkGraph(G) {
+    // If the argument isn't an array, it's not valid
+    if(!Array.isArray(G)) {
+        return false;
+    }
+
+    let width = G.length;
+    let height = G[0].length
+
+    // If the argument isn't a square array, it's not valid
     if(width !== height) {
-        throw 'Array is not square!';
+        return false;
     }
+
+    let n = width;
+    // If the array contains any non numeric or negative values, it's not valid
+    for(let i=0; i < n; i++) {
+        for(let j=0; j < n; j++) {
+            if(isNaN(G[i][j]) || G[i][j] < 0) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Checks if a graph is undirected
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @return boolean is the graph undirected
+ */
+function isUndirected(G) {
+    let n = G[0].length;
+
+    // An undirected graph is diagonally symmetric, so if we find any asymmetric values, we'll know the graph isn't undirected
+    for(let i=0; i < n; i++) {
+        for(let j=0; j < n; j++) {
+            if(G[i][j] !== G[j][i]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Checks if an undirected graph is eulerian
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @return boolean is the graph eulerian
+ */
+function checkEulerUndirected(G) {
+    let n = G[0].length;
+
+    // An undirected graph is eulerian if all it's vertices have a an even degree
+    for(let i = 0; i < n; i++) {
+        let degree = 0;
+
+        for(let j = 0; j < n; j++) {
+            degree += G[i][j];
+        }
+
+        if(degree % 2 !== 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Checks if a directed graph is eulerian
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @return boolean is the graph eulerian
+ */
+function checkEulerDirected(G) {
+    let width = G.length;
+    let height = G[0].length
 
     // Find the number of outgoing and ingoing edges for all vertices
     let outgoing = new Array(width).fill(0);
     let ingoing = new Array(height).fill(0);
     for(let i = 0; i < height; i++) {
         for(let j = 0; j < width; j++) {
-            outgoing[i] += adjacencyMatrix[i][j];
-            ingoing[j] += adjacencyMatrix[i][j];
+            outgoing[i] += G[i][j];
+            ingoing[j] += G[i][j];
         }
     }
 
