@@ -39,6 +39,20 @@
     </style>
 
     <script>
+        // Rozmiar ekranów grafowych
+        const screenWidth = 650;
+        const screenHeight = 350;
+
+        // Stałe do rysowania grafów
+        const middleX = screenWidth/2;
+        const middleY = screenHeight/2;
+        const r = 80;
+
+        // Stałe do ustawiania cyklów
+        const cols = 3;
+        const offsetX = 100;
+        const offsetY = 140;
+        const distance = 150;
 
         var macierzSasiedztw;
         function onLoad()
@@ -83,18 +97,6 @@
     </div>
 
 <script>
-
-
-    // Stałe do rysowania grafów
-    const middleX = 250;
-    const middleY = 200;
-    const r = 80;
-
-    // Stałe do ustawiania cyklów
-    const cols = 3;
-    const offsetX = 100;
-    const offsetY = 140;
-    const distance = 150;
     var cy = null;
     function addFieldsAndNodes()
     {
@@ -167,8 +169,8 @@
         for (i = 0; i < number; i++)
         {
 
-            let posX = middleX + calculatePosX(i, r, number);
-            let posY = middleY + calculatePosY(i, r, number);
+            let posX = middleX + calculatePosX(i, number);
+            let posY = middleY + calculatePosY(i, number);
             cy.add({
                 group: 'nodes',
                 data: {id: i + 1},
@@ -208,7 +210,7 @@
                     macierzSasiedztw[i][table[j] - 1] = 1;
             }
 
-            console.log(macierzSasiedztw);
+            //console.log(macierzSasiedztw);
         }
 
         // 0 - skierowany, 1 - nieskierowany
@@ -256,9 +258,12 @@
 
                     rysujGrafWyjsciowy(cykle, 1);
                 }
+                else {
+                    alert("Podany graf nie jest grafem eulerowskim!");
+                }
             }
             else {
-                throw "Zły type";
+                alert("Zły type!")
             }
         }
     }
@@ -358,8 +363,8 @@
 
             for (j = 0; j < n; j++)
             {
-                let posX = cycleX + calculatePosX(j, r, n);
-                let posY = cycleY + calculatePosY(j, r, n);
+                let posX = cycleX + calculatePosX(j, n);
+                let posY = cycleY + calculatePosY(j, n);
                 cy1.add({
                     group: 'nodes',
                     data: {
@@ -391,14 +396,57 @@
             }
         }
     }
-    function calculatePosX(index, r, n) {
+    function calculatePosX(index, n) {
+        let r = calculateR(n);
         let angle = (index*2*Math.PI)/n;
         return Math.sin(angle) * r;
     }
-    function calculatePosY(index, r, n) {
+    function calculatePosY(index, n) {
+        let r = calculateR(n);
         let angle = (index*2*Math.PI)/n;
         return Math.cos(angle) * r;
     }
+    function calculateR(n) {
+        let r = 0;
+
+        n = parseInt(n);
+
+        switch(n) {
+            case 1:
+                r = 0;
+                break;
+            case 2:
+                r = 40;
+                break;
+            case 3:
+                r = 60;
+                break;
+            case 4:
+                r = 65;
+                break;
+            case 5:
+                r = 70;
+                break;
+            case 6:
+                r = 75;
+                break;
+            case 7:
+                r = 80;
+                break;
+            case 8:
+                r = 85;
+                break;
+            case 9:
+                r = 90;
+                break;
+            default:
+                r = 100;
+                break;
+        }
+
+        return r;
+    }
+
     function addEventListenerOut(elem, arg) 
     {
         elem.addEventListener('focusout', function (e)
