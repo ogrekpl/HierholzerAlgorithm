@@ -144,23 +144,48 @@
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        if (type == 0)
-            rysujGrafSkierowany();
-        else
-            rysujGrafNieskierowany();
+        rysujGraf(type);
     }
 
-    function rysujGrafNieskierowany()
+    //type: 0 - skierowany, 1 - nieskierowany
+    function rysujGraf(type)
     {
-        var cy = cytoscape({
-            container: document.getElementById('grafInput'),
-            style: [{
-                selector: 'node',
-                style: {
-                    'label': 'data(id)'
-                }
-            }]
-        });
+        if (type == 1)
+        {
+            var cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+            var cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
+
+
 
         var cols = 4;
         var rows = 4;
@@ -193,62 +218,6 @@
                             source: i+1,
                             target: j+1
                         }
-                    });
-                }
-            }
-        }
-    }
-
-    function rysujGrafSkierowany()
-    {
-        var cy = cytoscape({
-            container: document.getElementById('grafInput'),
-            style: [{
-                selector: 'node',
-                style: {
-                    'label': 'data(id)'
-                }
-            },
-                {
-                    selector: 'edge',
-                    style: {
-                        'width': 3,
-                        'line-color': '#ccc',
-                        'target-arrow-color': '#ccc',
-                        'target-arrow-shape': 'triangle',
-                        'curve-style': 'bezier'
-                    }
-                }]
-        });
-
-        var cols = 4;
-        var rows = 4;
-        var offset = 100;
-        var distance = 70;
-
-        for (i = 0; i < macierzSasiedztw.length; i++)
-        {
-            let posX = offset+distance*(i%cols);
-            let posY = offset+distance*Math.floor(i/rows);
-            cy.add({
-                group: 'nodes',
-                data: {id: i+1},
-                position: {x: posX, y: posY }
-            });
-        }
-
-        for (i = 0; i < macierzSasiedztw.length; i++)
-        {
-            for (j = 0; j < macierzSasiedztw.length; j++)
-            {
-                if (macierzSasiedztw[i][j] == 1)
-                {
-                    cy.add({
-                        group: 'edges',
-                        data: {
-                            id: 'e'+i+j,
-                            source: i+1,
-                            target: j+1, },
                     });
                 }
             }
