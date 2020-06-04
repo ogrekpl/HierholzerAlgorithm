@@ -10,6 +10,7 @@
     <script src="scripts/MyNode.js"></script>
     <script src="scripts/DoubleLinkedList.js"></script>
     <script src="scripts/hierholzer.js"></script>
+    <script src="scripts/hierholzerND.js"></script>
 
     <title>Hierholzer</title>
     <style>
@@ -221,7 +222,19 @@
         else {
             if(type === "0") {
                if(checkEulerDirected(macierzSasiedztw)) {
-                   DirectedHierholzer(macierzSasiedztw);
+                   let cykle = DirectedHierholzer(macierzSasiedztw);
+
+                   for(let i=0; i<cykle.length; i++) {
+                       let cykl = cykle[i];
+                       cykl.pop();
+                       for(let j=0; j<cykl.length; j++) {
+                           cykl[j]++;
+                       }
+                   }
+
+                   console.log(cykle);
+
+                   rysujGrafWyjsciowy(cykle, 0);
                }
                else {
                    alert("Podany graf nie jest grafem eulerowskim!");
@@ -229,7 +242,19 @@
             }
             else if(type === "1") {
                 if(checkEulerUndirected(macierzSasiedztw)) {
-                    //TODO
+                    let cykle = HierholzerND(macierzSasiedztw);
+
+                    for(let i=0; i<cykle.length; i++) {
+                        let cykl = cykle[i];
+                        cykl.pop();
+                        for(let j=0; j<cykl.length; j++) {
+                            cykl[j]++;
+                        }
+                    }
+
+                    console.log(cykle);
+
+                    rysujGrafWyjsciowy(cykle, 1);
                 }
             }
             else {
