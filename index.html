@@ -155,23 +155,48 @@
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        if (type == 0)
-            rysujGrafSkierowany();
-        else
-            rysujGrafNieskierowany();
+        rysujGraf(type);
     }
 
-    function rysujGrafNieskierowany()
+    //type: 0 - skierowany, 1 - nieskierowany
+    function rysujGraf(type)
     {
-        var cy = cytoscape({
-            container: document.getElementById('grafInput'),
-            style: [{
-                selector: 'node',
-                style: {
-                    'label': 'data(id)'
-                }
-            }]
-        });
+        if (type == 1)
+        {
+            var cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+            var cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
+
+
 
         let n = macierzSasiedztw.length;
 
@@ -207,61 +232,7 @@
         }
     }
 
-    function rysujGrafSkierowany()
-    {
-        var cy = cytoscape({
-            container: document.getElementById('grafInput'),
-            style: [{
-                selector: 'node',
-                style: {
-                    'label': 'data(id)'
-                }
-            },
-                {
-                    selector: 'edge',
-                    style: {
-                        'width': 3,
-                        'line-color': '#ccc',
-                        'target-arrow-color': '#ccc',
-                        'target-arrow-shape': 'triangle',
-                        'curve-style': 'bezier'
-                    }
-                }]
-        });
-
-        let n = macierzSasiedztw.length;
-
-        for (i = 0; i < n; i++)
-        {
-
-            let posX = middleX + calculatePosX(i, r, n);
-            let posY = middleY + calculatePosY(i, r, n);
-            cy.add({
-                group: 'nodes',
-                data: {id: i+1},
-                position: {x: posX, y: posY }
-            });
-        }
-
-        for (i = 0; i < macierzSasiedztw.length; i++)
-        {
-            for (j = 0; j < macierzSasiedztw.length; j++)
-            {
-                if (macierzSasiedztw[i][j] == 1)
-                {
-                    cy.add({
-                        group: 'edges',
-                        data: {
-                            id: 'e'+i+j,
-                            source: i+1,
-                            target: j+1, },
-                    });
-                }
-            }
-        }
-    }
-
-    var tabliczka = [[1,3,5], [2,4], [6,7,8,9,10]];
+    var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
     rysujGrafWyjsciowy(tabliczka, 0);
 
     // type 0 - skierowany, 1- nieskierowany
@@ -273,7 +244,7 @@
                 style: [{
                     selector: 'node',
                     style: {
-                        'label': 'data(id)'
+                        'label': 'data(title)'
                     }
                 }]
             });
@@ -285,7 +256,7 @@
                 style: [{
                     selector: 'node',
                     style: {
-                        'label': 'data(id)'
+                        'label': 'data(name)'
                     }
                 },
                     {
@@ -318,7 +289,9 @@
                 let posY = cycleY + calculatePosY(j, r, n);
                 cy1.add({
                     group: 'nodes',
-                    data: {id: cycle[j]},
+                    data: {
+                        id: "n" + i + cycle[j],
+                        name: cycle[j]},
                     position: {x: posX, y: posY },
                 });
             }
@@ -339,8 +312,8 @@
                     group: 'edges',
                     data: {
                         id: 'e'+nodeS+nodeE,
-                        source: nodeS,
-                        target: nodeE, },
+                        source: "n" + i + nodeS,
+                        target: "n" + i + nodeE, },
                 });
             }
         }
