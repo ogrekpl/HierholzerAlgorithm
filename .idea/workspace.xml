@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f40223f6-eb93-4fd7-8fa1-7700ff027173" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.browserslist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.github/ISSUE_TEMPLATE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.github/PULL_REQUEST_TEMPLATE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.github/stale.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.size-snapshot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/dist/cytoscape.cjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/dist/cytoscape.esm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/dist/cytoscape.esm.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/dist/cytoscape.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/dist/cytoscape.umd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/license-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/rollup.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/animation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/cjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/a-star.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/affinity-propagation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/bellman-ford.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/betweenness-centrality.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/bfs-dfs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/closeness-centrality.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/clustering-distances.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/degree-centrality.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/dijkstra.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/floyd-warshall.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/hierarchical-clustering.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/hierholzer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/hopcroft-tarjan-biconnected.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/k-clustering.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/karger-stein.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/kruskal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/markov-clustering.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/page-rank.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/algorithms/tarjan-strongly-connected.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/animation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/cache-traversal-call.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/class.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/comparators.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/compounds.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/degree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/dimensions/bounds.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/dimensions/edge-points.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/dimensions/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/dimensions/position.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/dimensions/width-height.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/element.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/events.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/filter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/group.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/iteration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/switch-functions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/traversing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/collection/zsort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/add-remove.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/cubic-bezier.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/ease.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/easings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/spring.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/start.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/step-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/animation/step.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/events.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/export.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/notification.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/renderer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/core/viewport.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/define/animation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/define/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/define/events.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/define/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/emitter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/event.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extension.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/breadthfirst.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/circle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/concentric.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/cose.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/grid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/null.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/preset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/layout/random.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/arrow-shapes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/coords.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/edge-arrows.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/edge-control-points.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/edge-endpoints.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/edge-projection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/labels.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/nodes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/rendered-style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/coord-ele-math/z-ordering.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/images.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/load-listeners.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/node-shapes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/base/redraw.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/arrow-shapes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-edges.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-elements.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-images.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-label-text.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-nodes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-redraw.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/drawing-shapes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/ele-texture-cache-lookup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/ele-texture-cache.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/export-image.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/layered-texture-cache.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/node-shapes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/canvas/texture-cache-defs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/extensions/renderer/null/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/heap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/math.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/promise.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/expressions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/matching.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/new-query.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/parse.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/query-type-match.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/state.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/tokens.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/selector/type.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/set.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/apply.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/bypass.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/container.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/get-for-ele.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/json.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/parse.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/properties.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/style/string-sheet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/stylesheet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/colors.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/extend.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/hash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/maps.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/memoize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/regex.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/sort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/strings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/util/timing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/version.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/cytoscape/src/window.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/bower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/lib/heap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/src/heap.coffee" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/heap/test/heap.test.coffee" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/lodash.debounce/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/lodash.debounce/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/lodash.debounce/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/lodash.debounce/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="package.json" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\xampp\htdocs\projects\HierholzerAlgorithm\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1c7kMLyZMqCJkx1jwwUQ0720Smv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\projects\HierholzerAlgorithm\scripts" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f40223f6-eb93-4fd7-8fa1-7700ff027173" name="Default Changelist" comment="" />
+      <created>1589888728493</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589888728493</updated>
+      <workItem from="1589888729540" duration="12983000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
