@@ -182,8 +182,8 @@
                         group: 'edges',
                         data: {
                             id: 'e'+i+j,
-                            source: i,
-                            target: j
+                            source: i+1,
+                            target: j+1
                         }
                     });
                 }
@@ -200,7 +200,17 @@
                 style: {
                     'label': 'data(id)'
                 }
-            }]
+            },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ccc',
+                        'target-arrow-color': '#ccc',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }]
         });
 
         for (i = 0; i < macierzSasiedztw.length; i++)
@@ -222,8 +232,8 @@
                         group: 'edges',
                         data: {
                             id: 'e'+i+j,
-                            source: i,
-                            target: j, },
+                            source: i+1,
+                            target: j+1, },
                     });
                 }
             }
