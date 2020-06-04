@@ -87,7 +87,13 @@ function checkEulerUndirected(G) {
         let degree = 0;
 
         for(let j = 0; j < n; j++) {
-            degree += G[i][j];
+            if(j === i && G[i][j] !== 0) {
+                throw "To jest multigraf, nie graf!";
+                return false;
+            }
+            else {
+                degree += G[i][j];
+            }
         }
 
         if(degree % 2 !== 0) {
