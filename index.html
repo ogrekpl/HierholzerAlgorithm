@@ -210,8 +210,9 @@
                 if (table[j]!=0)
                     macierzSasiedztw[i][table[j] - 1] = 1;
             }
-
         }
+
+        alert(macierzSasiedztw);
 
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
@@ -349,7 +350,7 @@
                     }]
             });
         }
-
+        let index = 0;
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
@@ -358,7 +359,6 @@
             let cycleY = offsetY+distance*Math.floor((i)/cols);
 
             let n = cycle.length;
-
             for (j = 0; j < n; j++)
             {
                 let posX = cycleX + calculatePosX(j, n);
@@ -366,14 +366,15 @@
                 cy1.add({
                     group: 'nodes',
                     data: {
-                        id: "n" + i + ',' + cycle[j],
+                        id: "n" + i + ',' + cycle[j] + ',' + index,
                         name: cycle[j]
                     },
                     position: {x: posX, y: posY },
                 });
+                index++;
             }
         }
-
+        index = 0;
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
@@ -388,10 +389,11 @@
                 cy1.add({
                     group: 'edges',
                     data: {
-                        id: 'e' + nodeS+ ',' + nodeE,
-                        source: "n" + i + ',' + nodeS,
-                        target: "n" + i + ','+  nodeE, },
+                        id: 'e' + nodeS+ ',' + nodeE + ',' + index,
+                        source: "n" + i + ',' + nodeS + ',' + index,
+                        target: "n" + i + ','+  nodeE + ',' + (index+1), },
                 });
+                index++;
             }
         }
     }
