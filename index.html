@@ -38,38 +38,6 @@
             document.getElementById("nodesButtonSucces").hidden = true;
         }
 
-        //Dodaje pola wyboru sąsiadów wierzchołków
-        function addFields()
-        {
-            var number = document.getElementById("nodesNumber").value;
-            var container = document.getElementById("nodesInput");
-            while (container.hasChildNodes())
-            {
-                container.removeChild(container.lastChild);
-            }
-
-
-            container.appendChild(document.createTextNode("Wprowadź sąsiadów wierzchołków: "));
-            container.appendChild(document.createElement("br"));
-            container.appendChild(document.createTextNode("np 2,3,4,10"));
-            container.appendChild(document.createElement("br"));
-            container.appendChild(document.createElement("br"));
-            for (i = 0; i < number; i++)
-            {
-                container.appendChild(document.createTextNode("Wierzchołek " + (i+1) + " "));
-                var input = document.createElement("input");
-                input.type = "text";
-                input.name = "node" + (i+1);
-                input.id = "nodeID" + (i+1);
-                container.appendChild(input);
-                container.appendChild(document.createElement("br"));
-            }
-            if (number > 0)
-                document.getElementById("nodesButtonSucces").hidden = false;
-            else
-                document.getElementById("nodesButtonSucces").hidden = true;
-        }
-
     </script>
     </head>
 <body onload="onLoad()">
@@ -88,7 +56,7 @@
                     <BR>
                     Podaj liczbę wierchołków:
                     <input type="number" id="nodesNumber" style="max-width: 40px"/>
-                    <div><button type="button" class="btn btn-success" id="graphButtonSuccess" onclick="addFields()">Wybierz</button></div>
+                    <div><button type="button" class="btn btn-success" id="graphButtonSuccess" onclick="addFieldsAndNodes()">Wybierz</button></div>
                     <BR>
                     <div id="nodesInput">
 
@@ -108,6 +76,7 @@
 
 <script>
 
+
     // Stałe do rysowania grafów
     const middleX = 250;
     const middleY = 200;
@@ -118,6 +87,93 @@
     const offsetX = 100;
     const offsetY = 140;
     const distance = 150;
+    var cy = null;
+    function addFieldsAndNodes()
+    {
+        var number = document.getElementById("nodesNumber").value;
+        var type = document.getElementById("sel1").value;
+        var container = document.getElementById("nodesInput");
+        while (container.hasChildNodes())
+        {
+            container.removeChild(container.lastChild);
+        }
+
+
+        container.appendChild(document.createTextNode("Wprowadź sąsiadów wierzchołków: "));
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createTextNode("np 2,3,4,10"));
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createElement("br"));
+        for (i = 0; i < number; i++)
+        {
+            container.appendChild(document.createTextNode("Wierzchołek " + (i+1) + " "));
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "node" + (i+1);
+            input.id = "nodeID" + (i+1);
+            input.addEventListener('focusout', (event) =>
+            {
+                console.log("TEST!");
+
+                rysujKrawedz(i);
+            });
+            container.appendChild(input);
+            container.appendChild(document.createElement("br"));
+        }
+        if (number > 0)
+            document.getElementById("nodesButtonSucces").hidden = false;
+        else
+            document.getElementById("nodesButtonSucces").hidden = true;
+
+        // Dodawanie wierchołków wyswietlanego grafu
+        if (type == 1)
+        {
+              cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+              cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
+
+        for (i = 0; i < number; i++)
+        {
+
+            let posX = middleX + calculatePosX(i, r, number);
+            let posY = middleY + calculatePosY(i, r, number);
+            cy.add({
+                group: 'nodes',
+                data: {id: i + 1},
+                position: {x: posX, y: posY },
+
+            });
+        }
+    }
 
     //uzupełnia macierz sąsiedztw. Do tego generuje graf graficznie
     function LoadGraph()
@@ -155,64 +211,12 @@
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        rysujGraf(type);
+        rysujKrawedzi();
     }
 
     //type: 0 - skierowany, 1 - nieskierowany
-    function rysujGraf(type)
+    function rysujKrawedzi()
     {
-        if (type == 1)
-        {
-            var cy = cytoscape({
-                container: document.getElementById('grafInput'),
-                style: [{
-                    selector: 'node',
-                    style: {
-                        'label': 'data(id)'
-                    }
-                }]
-            });
-        }
-        else
-        {
-            var cy = cytoscape({
-                container: document.getElementById('grafInput'),
-                style: [{
-                    selector: 'node',
-                    style: {
-                        'label': 'data(id)'
-                    }
-                },
-                    {
-                        selector: 'edge',
-                        style: {
-                            'width': 3,
-                            'line-color': '#ccc',
-                            'target-arrow-color': '#ccc',
-                            'target-arrow-shape': 'triangle',
-                            'curve-style': 'bezier'
-                        }
-                    }]
-            });
-        }
-
-
-
-        let n = macierzSasiedztw.length;
-
-        for (i = 0; i < n; i++)
-        {
-
-            let posX = middleX + calculatePosX(i, r, n);
-            let posY = middleY + calculatePosY(i, r, n);
-            cy.add({
-                group: 'nodes',
-                data: {id: i + 1},
-                position: {x: posX, y: posY },
-
-            });
-        }
-
         for (i = 0; i < macierzSasiedztw.length; i++)
         {
             for (j = 0; j < macierzSasiedztw.length; j++)
@@ -229,6 +233,26 @@
                     });
                 }
             }
+        }
+    }
+
+    function rysujKrawedz(number)
+    {
+        console.log(number);
+        var id = "nodeID" + (number);
+        var inputNode = document.getElementById(id);
+        var value = inputNode.value;
+        var table = value.split(",");
+        for (i = 0; i < table.length; i++)
+        {
+            cy.add({
+                group: 'edges',
+                data: {
+                    id: 'e'+ number + i,
+                    source: number,
+                    target: table[i]
+                }
+            });
         }
     }
 
@@ -318,7 +342,6 @@
             }
         }
     }
-
     function calculatePosX(index, r, n) {
         let angle = (index*2*Math.PI)/n;
         return Math.sin(angle) * r;
