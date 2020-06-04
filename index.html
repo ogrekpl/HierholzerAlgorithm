@@ -48,6 +48,12 @@
                 container.removeChild(container.lastChild);
             }
 
+
+            container.appendChild(document.createTextNode("Wprowadź sąsiadów wierzchołków: "));
+            container.appendChild(document.createElement("br"));
+            container.appendChild(document.createTextNode("np  1: 2,3,4,10"));
+            container.appendChild(document.createElement("br"));
+            container.appendChild(document.createElement("br"));
             for (i = 0; i < number; i++)
             {
                 container.appendChild(document.createTextNode("Wierzchołek " + (i+1) + " "));
@@ -147,16 +153,22 @@
     function rysujGrafNieskierowany()
     {
         var cy = cytoscape({
-            container: document.getElementById('grafInput')
+            container: document.getElementById('grafInput'),
+            style: [{
+                selector: 'node',
+                style: {
+                    'label': 'data(id)'
+                }
+            }]
         });
 
         for (i = 0; i < macierzSasiedztw.length; i++)
         {
             cy.add({
                 group: 'nodes',
-                data: {id: 'n'+i},
+                data: {id: i + 1},
                 position: {x: 200, y: 200 },
-                style: {label: i+1},
+
             });
         }
 
@@ -170,8 +182,8 @@
                         group: 'edges',
                         data: {
                             id: 'e'+i+j,
-                            source:'n'+i,
-                            target:'n'+j
+                            source: i,
+                            target: j
                         }
                     });
                 }
@@ -184,22 +196,19 @@
         var cy = cytoscape({
             container: document.getElementById('grafInput'),
             style: [{
-                    selector: "edge[arrow]",
-                    style:
-                        {
-                            "target-arrow-shape": "triangle"
-                        }
+                selector: 'node',
+                style: {
+                    'label': 'data(id)'
                 }
-            ],
+            }]
         });
 
         for (i = 0; i < macierzSasiedztw.length; i++)
         {
             cy.add({
                 group: 'nodes',
-                data: {id: 'n'+i},
-                position: {x: 200, y: 200 },
-                style: {label: i+1},
+                data: {id: i+1},
+                position: {x: 200, y: 200 }
             });
         }
 
@@ -213,8 +222,8 @@
                         group: 'edges',
                         data: {
                             id: 'e'+i+j,
-                            source:'n'+i,
-                            target:'n'+j, },
+                            source: i,
+                            target: j, },
                     });
                 }
             }
@@ -227,7 +236,13 @@
     function rysujGrafWyjsciowy(tab)
     {
         var cy1 = cytoscape({
-            container: document.getElementById('grafOutput')
+            container: document.getElementById('grafOutput'),
+            style: [{
+                selector: 'node',
+                style: {
+                    'label': 'data(id)'
+                }
+            }]
         });
 
         for (i = 0; i < tab.length; i++)
@@ -237,9 +252,8 @@
             {
                 cy1.add({
                     group: 'nodes',
-                    data: {id: 'n'+ cycle[j]},
+                    data: {id: cycle[j]},
                     position: {x: 200, y: 200 },
-                    style: {label: cycle[j]},
                 });
             }
         }
@@ -259,8 +273,8 @@
                     group: 'edges',
                     data: {
                         id: 'e'+nodeS+nodeE,
-                        source:'n'+ nodeS,
-                        target:'n'+ nodeE, },
+                        source: nodeS,
+                        target: nodeE, },
                 });
             }
         }
