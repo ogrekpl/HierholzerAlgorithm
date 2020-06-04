@@ -5,7 +5,13 @@
     <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <title>Title</title>
+
+    <script src="scripts/checkEuler.js"></script>
+    <script src="scripts/MyNode.js"></script>
+    <script src="scripts/DoubleLinkedList.js"></script>
+    <script src="scripts/hierholzer.js"></script>
+
+    <title>Hierholzer</title>
     <style>
         #grafInput
         {
@@ -122,7 +128,7 @@
             document.getElementById("nodesButtonSucces").hidden = true;
 
         // Dodawanie wierchołków wyswietlanego grafu
-        if (type == 1)
+        if (type === 1)
         {
               cy = cytoscape({
                 container: document.getElementById('grafInput'),
@@ -207,7 +213,29 @@
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        rysujKrawedzi();
+        let eulerowski;
+
+        if(!checkGraph(macierzSasiedztw)) {
+            alert("ZŁA MACIERZ");
+        }
+        else {
+            if(type === "0") {
+               if(checkEulerDirected(macierzSasiedztw)) {
+                   DirectedHierholzer(macierzSasiedztw);
+               }
+               else {
+                   alert("Podany graf nie jest grafem eulerowskim!");
+               }
+            }
+            else if(type === "1") {
+                if(checkEulerUndirected(macierzSasiedztw)) {
+                    //TODO
+                }
+            }
+            else {
+                throw "Zły type";
+            }
+        }
     }
 
     //type: 0 - skierowany, 1 - nieskierowany
@@ -217,7 +245,7 @@
         {
             for (j = 0; j < macierzSasiedztw.length; j++)
             {
-                if (macierzSasiedztw[i][j] == 1)
+                if (macierzSasiedztw[i][j] === 1)
                 {
                     cy.add({
                         group: 'edges',
@@ -234,7 +262,7 @@
 
     function rysujKrawedz(number)
     {
-        console.log(number);
+        //console.log(number);
         var id = "nodeID" + (number);
         var inputNode = document.getElementById(id);
         var value = inputNode.value;
@@ -252,13 +280,13 @@
         }
     }
 
-    var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
-    rysujGrafWyjsciowy(tabliczka, 0);
+    //var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
+    //rysujGrafWyjsciowy(tabliczka, 0);
 
     // type 0 - skierowany, 1- nieskierowany
     function rysujGrafWyjsciowy(tab, type)
     {
-        if (type == 1) {
+        if (type === 1) {
             var cy1 = cytoscape({
                 container: document.getElementById('grafOutput'),
                 style: [{
@@ -323,7 +351,7 @@
             for (j = 0; j < cycle.length; j++)
             {
                 var nodeS = cycle[j];
-                if (j == cycle.length - 1)
+                if (j === cycle.length - 1)
                     var nodeE = cycle[0];
                 else
                     var nodeE = cycle[j+1];
@@ -353,7 +381,7 @@
             var doc = document.getElementById("nodeID" + arg);
             var value = doc.value;
             cy.remove(cy.elements('edge[source = "'+arg+'"]'));
-            if (value != 0)
+            if (value !== 0)
             {
                 rysujKrawedz(arg);
             }

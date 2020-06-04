@@ -13,9 +13,11 @@ function checkEuler(G) {
     let undirected = isUndirected(G);
 
     if(undirected) {
+        console.log("undirected");
         return checkEulerUndirected(G);
     }
     else {
+        console.log("directed");
         return checkEulerDirected(G);
     }
 }
@@ -145,6 +147,5 @@ function checkEulerDirected(G) {
         }
     }
 
-    console.log(false);
     return false;
 }
