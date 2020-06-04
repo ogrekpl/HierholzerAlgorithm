@@ -108,6 +108,17 @@
 
 <script>
 
+    // Stałe do rysowania grafów
+    const middleX = 250;
+    const middleY = 200;
+    const r = 80;
+
+    // Stałe do ustawiania cyklów
+    const cols = 3;
+    const offsetX = 100;
+    const offsetY = 140;
+    const distance = 150;
+
     //uzupełnia macierz sąsiedztw. Do tego generuje graf graficznie
     function LoadGraph()
     {
@@ -187,16 +198,13 @@
 
 
 
-        var cols = 4;
-        var rows = 4;
-        var offset = 100;
-        var distance = 70;
+        let n = macierzSasiedztw.length;
 
-        for (i = 0; i < macierzSasiedztw.length; i++)
+        for (i = 0; i < n; i++)
         {
 
-            let posX = offset+distance*(i%cols);
-            let posY = offset+distance*Math.floor(i/rows);
+            let posX = middleX + calculatePosX(i, r, n);
+            let posY = middleY + calculatePosY(i, r, n);
             cy.add({
                 group: 'nodes',
                 data: {id: i + 1},
@@ -264,18 +272,21 @@
             });
         }
 
-        var cols = 4;
-        var rows = 4;
-        var offset = 100;
-        var distance = 70;
+
 
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
-            for (j = 0; j < cycle.length; j++)
+
+            let cycleX = offsetX+distance*((i)%cols);
+            let cycleY = offsetY+distance*Math.floor((i)/cols);
+
+            let n = cycle.length;
+
+            for (j = 0; j < n; j++)
             {
-                let posX = offset+distance*((i)%cols);
-                let posY = offset+distance*Math.floor((i)/rows);
+                let posX = cycleX + calculatePosX(j, r, n);
+                let posY = cycleY + calculatePosY(j, r, n);
                 cy1.add({
                     group: 'nodes',
                     data: {
@@ -306,6 +317,15 @@
                 });
             }
         }
+    }
+
+    function calculatePosX(index, r, n) {
+        let angle = (index*2*Math.PI)/n;
+        return Math.sin(angle) * r;
+    }
+    function calculatePosY(index, r, n) {
+        let angle = (index*2*Math.PI)/n;
+        return Math.cos(angle) * r;
     }
 
 </script>
