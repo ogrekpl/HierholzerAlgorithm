@@ -54,7 +54,7 @@
         const offsetY = 140;
         const distance = 150;
 
-        var macierzSasiedztw;
+
         function onLoad()
         {
             document.getElementById("nodesButtonSucces").hidden = true;
@@ -98,6 +98,7 @@
 
 <script>
     var cy = null;
+    var macierzSasiedztw = null;
     function addFieldsAndNodes()
     {
         var number = document.getElementById("nodesNumber").value;
@@ -131,7 +132,7 @@
             document.getElementById("nodesButtonSucces").hidden = true;
 
         // Dodawanie wierchołków wyswietlanego grafu
-        if (type === 1)
+        if (type == 1)
         {
               cy = cytoscape({
                 container: document.getElementById('grafInput'),
@@ -198,30 +199,29 @@
             }
         }
 
-        for (i = 0; i < number; i++)
+        for (let i = 0; i < number; i++)
         {
             var id = "nodeID" + (i+1);
             var inputNode = document.getElementById(id);
             var value = inputNode.value;
             var table = value.split(",");
-            for (j = 0; j < table.length; j++)
+            for (let j = 0; j < table.length; j++)
             {
                 if (table[j]!=0)
                     macierzSasiedztw[i][table[j] - 1] = 1;
             }
 
-            //console.log(macierzSasiedztw);
         }
 
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        let eulerowski;
-
         if(!checkGraph(macierzSasiedztw)) {
             alert("ZŁA MACIERZ");
         }
-        else {
+        else
+            {
+                console.log(macierzSasiedztw);
             if(type === "0") {
                if(checkEulerDirected(macierzSasiedztw)) {
                    let cykle = DirectedHierholzer(macierzSasiedztw);
@@ -316,13 +316,13 @@
     // type 0 - skierowany, 1- nieskierowany
     function rysujGrafWyjsciowy(tab, type)
     {
-        if (type === 1) {
+        if (type == 1) {
             var cy1 = cytoscape({
                 container: document.getElementById('grafOutput'),
                 style: [{
                     selector: 'node',
                     style: {
-                        'label': 'data(title)'
+                        'label': 'data(name)'
                     }
                 }]
             });
@@ -350,8 +350,6 @@
             });
         }
 
-
-
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
@@ -368,8 +366,9 @@
                 cy1.add({
                     group: 'nodes',
                     data: {
-                        id: "n" + i + cycle[j],
-                        name: cycle[j]},
+                        id: "n" + i + ',' + cycle[j],
+                        name: cycle[j]
+                    },
                     position: {x: posX, y: posY },
                 });
             }
@@ -389,9 +388,9 @@
                 cy1.add({
                     group: 'edges',
                     data: {
-                        id: 'e'+nodeS+nodeE,
-                        source: "n" + i + nodeS,
-                        target: "n" + i + nodeE, },
+                        id: 'e' + nodeS+ ',' + nodeE,
+                        source: "n" + i + ',' + nodeS,
+                        target: "n" + i + ','+  nodeE, },
                 });
             }
         }
