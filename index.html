@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <title>Title</title>
     <style>
         #grafInput
@@ -26,7 +27,7 @@
         }
         body
         {
-            background-color: #bbbbbb;
+            background-color: #cccccc;
         }
     </style>
 
@@ -109,14 +110,9 @@
             container.appendChild(document.createTextNode("Wierzchołek " + (i+1) + " "));
             var input = document.createElement("input");
             input.type = "text";
-            input.name = "node" + (i+1);
+            input.name = (i+1);
             input.id = "nodeID" + (i+1);
-            input.addEventListener('focusout', (event) =>
-            {
-                console.log("TEST!");
-
-                rysujKrawedz(i);
-            });
+            addEventListenerOut(input, i+1);
             container.appendChild(input);
             container.appendChild(document.createElement("br"));
         }
@@ -248,7 +244,7 @@
             cy.add({
                 group: 'edges',
                 data: {
-                    id: 'e'+ number + i,
+                    id: 'e'+ number + ',' + i,
                     source: number,
                     target: table[i]
                 }
@@ -350,11 +346,30 @@
         let angle = (index*2*Math.PI)/n;
         return Math.cos(angle) * r;
     }
+    function addEventListenerOut(elem, arg) 
+    {
+        elem.addEventListener('focusout', function (e)
+        {
+            var doc = document.getElementById("nodeID" + arg);
+            var value = doc.value;
+            if (value != 0)
+            {
+                rysujKrawedz(arg);
+            }
+
+        }, false);
+
+        elem.addEventListener('focusin', function (e)
+        {
+            cy.remove(cy.elements('edge[source = "'+arg+'"]'));
+            console.log("ELO");
+        }, false);
+    }
 
 </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
