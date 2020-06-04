@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Title</title>
+    <style>
+        #grafInput
+        {
+            width: 650px;
+            height: 350px;
+            display: block;
+            background-color: white;
+            border: black solid thin;
+            float: left;
+        }
+        #grafOutput
+        {
+            width: 650px;
+            height: 350px;
+            display: block;
+            background-color: white;
+            border: black solid thin;
+            float: left;
+        }
+        body
+        {
+            background-color: #cccccc;
+        }
+    </style>
+
+    <script>
+
+        var macierzSasiedztw;
+        function onLoad()
+        {
+            document.getElementById("nodesButtonSucces").hidden = true;
+        }
+
+    </script>
+    </head>
+<body onload="onLoad()">
+    <div id="container">
+        <center><h1>Projekt na Grafy i Sieci</h1></center>
+    </hr>
+        <div class="col-6 .col-lg-4" style="float: left">
+            <div class="col-6 .col-md-4" style="float: left; text-align: justify">Program poszukuje cykle w grafie Eulerowskim. Na wejściu wybieramy jaki typ grafu mamy, ile wierzchołków, oraz wpisujemy sąsiadów danego wierchołka w następującej postaci np. 1,2,5,7 lub pozostawiamy puste. Algorytm sprawdzi czy jest to graf Eulerowski. Jeżeli jest -> zostaną narysowane cykle, w przeciwnym wypadku dostaniemy informację zwrotną. </div>
+            <div class="col-6 .col-md-4" style="float: left; text-align: center">
+                <div class="form-group">
+                    <label for="sel1">Wybierz typ grafu:</label>
+                    <select class="form-control" id="sel1">
+                        <option value="0">Skierowany</option>
+                        <option value="1">Nieskierowany</option>
+                    </select>
+                    <BR>
+                    Podaj liczbę wierchołków:
+                    <input type="number" id="nodesNumber" style="max-width: 40px"/>
+                    <div><button type="button" class="btn btn-success" id="graphButtonSuccess" onclick="addFieldsAndNodes()">Wybierz</button></div>
+                    <BR>
+                    <div id="nodesInput">
+
+                    </div>
+                    <BR>
+                    <button type="button" class="btn btn-success" id="nodesButtonSucces" onclick="LoadGraph()">Zatwierdź</button>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-6 .col-lg-8" style="float: left">
+            <div id="grafInput"></div>
+            <div id ="grafOutput"></div>
+        </div>
+    </div>
+
+<script>
+
+
+    // Stałe do rysowania grafów
+    const middleX = 250;
+    const middleY = 200;
+    const r = 80;
+
+    // Stałe do ustawiania cyklów
+    const cols = 3;
+    const offsetX = 100;
+    const offsetY = 140;
+    const distance = 150;
+    var cy = null;
+    function addFieldsAndNodes()
+    {
+        var number = document.getElementById("nodesNumber").value;
+        var type = document.getElementById("sel1").value;
+        var container = document.getElementById("nodesInput");
+        while (container.hasChildNodes())
+        {
+            container.removeChild(container.lastChild);
+        }
+
+
+        container.appendChild(document.createTextNode("Wprowadź sąsiadów wierzchołków: "));
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createTextNode("np 2,3,4,10"));
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createElement("br"));
+        for (i = 0; i < number; i++)
+        {
+            container.appendChild(document.createTextNode("Wierzchołek " + (i+1) + " "));
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = (i+1);
+            input.id = "nodeID" + (i+1);
+            addEventListenerOut(input, i+1);
+            container.appendChild(input);
+            container.appendChild(document.createElement("br"));
+        }
+        if (number > 0)
+            document.getElementById("nodesButtonSucces").hidden = false;
+        else
+            document.getElementById("nodesButtonSucces").hidden = true;
+
+        // Dodawanie wierchołków wyswietlanego grafu
+        if (type == 1)
+        {
+              cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+              cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
+
+        for (i = 0; i < number; i++)
+        {
+
+            let posX = middleX + calculatePosX(i, r, number);
+            let posY = middleY + calculatePosY(i, r, number);
+            cy.add({
+                group: 'nodes',
+                data: {id: i + 1},
+                position: {x: posX, y: posY },
+
+            });
+        }
+    }
+
+    //uzupełnia macierz sąsiedztw. Do tego generuje graf graficznie
+    function LoadGraph()
+    {
+        macierzSasiedztw = [];
+        var number = document.getElementById("nodesNumber").value;
+        for (k = 0; k < number; k++)
+        {
+            macierzSasiedztw.push(Array());
+        }
+
+        for (i = 0; i < number; i++)
+        {
+            for (j = 0; j < number; j++)
+            {
+                macierzSasiedztw[i][j] = 0;
+            }
+        }
+
+        for (i = 0; i < number; i++)
+        {
+            var id = "nodeID" + (i+1);
+            var inputNode = document.getElementById(id);
+            var value = inputNode.value;
+            var table = value.split(",");
+            for (j = 0; j < table.length; j++)
+            {
+                if (table[j]!=0)
+                    macierzSasiedztw[i][table[j] - 1] = 1;
+            }
+
+            console.log(macierzSasiedztw);
+        }
+
+        // 0 - skierowany, 1 - nieskierowany
+        var type = document.getElementById("sel1").value;
+
+        rysujKrawedzi();
+    }
+
+    //type: 0 - skierowany, 1 - nieskierowany
+    function rysujKrawedzi()
+    {
+        for (i = 0; i < macierzSasiedztw.length; i++)
+        {
+            for (j = 0; j < macierzSasiedztw.length; j++)
+            {
+                if (macierzSasiedztw[i][j] == 1)
+                {
+                    cy.add({
+                        group: 'edges',
+                        data: {
+                            id: 'e'+i+j,
+                            source: i+1,
+                            target: j+1
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    function rysujKrawedz(number)
+    {
+        console.log(number);
+        var id = "nodeID" + (number);
+        var inputNode = document.getElementById(id);
+        var value = inputNode.value;
+        var table = value.split(",");
+        for (i = 0; i < table.length; i++)
+        {
+            cy.add({
+                group: 'edges',
+                data: {
+                    id: 'e'+ number + ',' + i,
+                    source: number,
+                    target: table[i]
+                }
+            });
+        }
+    }
+
+    var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
+    rysujGrafWyjsciowy(tabliczka, 0);
+
+    // type 0 - skierowany, 1- nieskierowany
+    function rysujGrafWyjsciowy(tab, type)
+    {
+        if (type == 1) {
+            var cy1 = cytoscape({
+                container: document.getElementById('grafOutput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(title)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+            var cy1 = cytoscape({
+                container: document.getElementById('grafOutput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(name)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
+
+
+
+        for (i = 0; i < tab.length; i++)
+        {
+            var cycle = tab[i];
+
+            let cycleX = offsetX+distance*((i)%cols);
+            let cycleY = offsetY+distance*Math.floor((i)/cols);
+
+            let n = cycle.length;
+
+            for (j = 0; j < n; j++)
+            {
+                let posX = cycleX + calculatePosX(j, r, n);
+                let posY = cycleY + calculatePosY(j, r, n);
+                cy1.add({
+                    group: 'nodes',
+                    data: {
+                        id: "n" + i + cycle[j],
+                        name: cycle[j]},
+                    position: {x: posX, y: posY },
+                });
+            }
+        }
+
+        for (i = 0; i < tab.length; i++)
+        {
+            var cycle = tab[i];
+            for (j = 0; j < cycle.length; j++)
+            {
+                var nodeS = cycle[j];
+                if (j == cycle.length - 1)
+                    var nodeE = cycle[0];
+                else
+                    var nodeE = cycle[j+1];
+
+                cy1.add({
+                    group: 'edges',
+                    data: {
+                        id: 'e'+nodeS+nodeE,
+                        source: "n" + i + nodeS,
+                        target: "n" + i + nodeE, },
+                });
+            }
+        }
+    }
+    function calculatePosX(index, r, n) {
+        let angle = (index*2*Math.PI)/n;
+        return Math.sin(angle) * r;
+    }
+    function calculatePosY(index, r, n) {
+        let angle = (index*2*Math.PI)/n;
+        return Math.cos(angle) * r;
+    }
+    function addEventListenerOut(elem, arg) 
+    {
+        elem.addEventListener('focusout', function (e)
+        {
+            var doc = document.getElementById("nodeID" + arg);
+            var value = doc.value;
+            cy.remove(cy.elements('edge[source = "'+arg+'"]'));
+            if (value != 0)
+            {
+                rysujKrawedz(arg);
+            }
+
+        }, false);
+    }
+
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
