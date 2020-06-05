@@ -62,13 +62,30 @@
         }
 
     </script>
-    </head>
+</head>
 <body onload="onLoad()">
     <div id="container">
-        <center><h1>Projekt na Grafy i Sieci</h1></center>
+        <center><h1>Rozkład grafu eulerowskiego na sumę cykli</h1></center>
     </hr>
         <div class="col-6 .col-lg-4" style="float: left">
-            <div class="col-6 .col-md-4" style="float: left; text-align: justify">Program poszukuje cykle w grafie Eulerowskim. Na wejściu wybieramy jaki typ grafu mamy, ile wierzchołków, oraz wpisujemy sąsiadów danego wierchołka w następującej postaci np. 1,2,5,7 lub pozostawiamy puste. Algorytm sprawdzi czy jest to graf Eulerowski. Jeżeli jest -> zostaną narysowane cykle, w przeciwnym wypadku dostaniemy informację zwrotną. </div>
+            <div class="col-6 .col-md-4" style="float: left; text-align: justify">
+                <h4>Wstęp</h4>
+                <p>Graf eulerowski, to taki graf, w którym da się skonstruować cykl Eulera, czyli ścieżkę, która przechodzi przez wszystkie krawędzie dokładnie raz
+                i kończy się w tym samym wierzchołku, w którm się rozpocząła.</p>
+                <p>Cechą charakterystyczną cyklu Eulera jest możliwość rozłożenia na sumę cykli prostych o rozłącznych krawędziach.</p>
+
+                <h4>Instrukcja</h4>
+                <ol>
+                    <li>Wybierz typ grafu.</li>
+                    <li>Wybierz liczbę wierzchołków</li>
+                    <li>
+                        Wprowadź listę sąsiadów każdego wierzchołka oddzielając każdego sąsiada przecinkiem, np '1,2,5,7'<br>
+                        (Jeżeli wybrano graf nieskierowany należy wpisać połączenia "w obydwie strony")
+                    </li>
+                    <li>Kliknij "Wybierz" aby zobaczyć rozkład na cykle</li>
+                </ol>
+                Jeżeli podany graf nie będzie eulerowskim, podział na cykle się nie wykona.
+            </div>
             <div class="col-6 .col-md-4" style="float: left; text-align: center">
                 <div class="form-group">
                     <label for="sel1">Wybierz typ grafu:</label>
