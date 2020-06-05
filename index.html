@@ -5,7 +5,14 @@
     <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <title>Title</title>
+
+    <script src="scripts/checkEuler.js"></script>
+    <script src="scripts/MyNode.js"></script>
+    <script src="scripts/DoubleLinkedList.js"></script>
+    <script src="scripts/hierholzer.js"></script>
+    <script src="scripts/hierholzerND.js"></script>
+
+    <title>Hierholzer</title>
     <style>
         #grafInput
         {
@@ -32,21 +39,53 @@
     </style>
 
     <script>
+        // Rozmiar ekranów grafowych
+        const screenWidth = 650;
+        const screenHeight = 350;
 
-        var macierzSasiedztw;
+        // Stałe do rysowania grafów
+        const middleX = screenWidth/2;
+        const middleY = screenHeight/2;
+        const r = 80;
+
+        // Stałe do ustawiania cyklów
+        const cols = 3;
+        const offsetX = 100;
+        const offsetY = 100;
+        const distanceX = 150;
+        const distanceY = 180;
+
+
         function onLoad()
         {
             document.getElementById("nodesButtonSucces").hidden = true;
         }
 
     </script>
-    </head>
+</head>
 <body onload="onLoad()">
     <div id="container">
-        <center><h1>Projekt na Grafy i Sieci</h1></center>
+        <center><h1>Rozkład grafu eulerowskiego na sumę cykli</h1></center>
     </hr>
         <div class="col-6 .col-lg-4" style="float: left">
-            <div class="col-6 .col-md-4" style="float: left; text-align: justify">Program poszukuje cykle w grafie Eulerowskim. Na wejściu wybieramy jaki typ grafu mamy, ile wierzchołków, oraz wpisujemy sąsiadów danego wierchołka w następującej postaci np. 1,2,5,7 lub pozostawiamy puste. Algorytm sprawdzi czy jest to graf Eulerowski. Jeżeli jest -> zostaną narysowane cykle, w przeciwnym wypadku dostaniemy informację zwrotną. </div>
+            <div class="col-6 .col-md-4" style="float: left; text-align: justify">
+                <h4>Wstęp</h4>
+                <p>Graf eulerowski, to taki graf, w którym da się skonstruować cykl Eulera, czyli ścieżkę, która przechodzi przez wszystkie krawędzie dokładnie raz
+                i kończy się w tym samym wierzchołku, w którm się rozpocząła.</p>
+                <p>Cechą charakterystyczną cyklu Eulera jest możliwość rozłożenia na sumę cykli prostych o rozłącznych krawędziach.</p>
+
+                <h4>Instrukcja</h4>
+                <ol>
+                    <li>Wybierz typ grafu.</li>
+                    <li>Wybierz liczbę wierzchołków</li>
+                    <li>
+                        Wprowadź listę sąsiadów każdego wierzchołka oddzielając każdego sąsiada przecinkiem, np '1,2,5,7'<br>
+                        (Jeżeli wybrano graf nieskierowany należy wpisać połączenia "w obydwie strony")
+                    </li>
+                    <li>Kliknij "Wybierz" aby zobaczyć rozkład na cykle</li>
+                </ol>
+                Jeżeli podany graf nie będzie eulerowskim, podział na cykle się nie wykona.
+            </div>
             <div class="col-6 .col-md-4" style="float: left; text-align: center">
                 <div class="form-group">
                     <label for="sel1">Wybierz typ grafu:</label>
@@ -76,19 +115,8 @@
     </div>
 
 <script>
-
-
-    // Stałe do rysowania grafów
-    const middleX = 250;
-    const middleY = 200;
-    const r = 80;
-
-    // Stałe do ustawiania cyklów
-    const cols = 3;
-    const offsetX = 100;
-    const offsetY = 140;
-    const distance = 150;
     var cy = null;
+    var macierzSasiedztw = null;
     function addFieldsAndNodes()
     {
         var number = document.getElementById("nodesNumber").value;
@@ -160,8 +188,8 @@
         for (i = 0; i < number; i++)
         {
 
-            let posX = middleX + calculatePosX(i, r, number);
-            let posY = middleY + calculatePosY(i, r, number);
+            let posX = middleX + calculatePosX(i, number);
+            let posY = middleY + calculatePosY(i, number);
             cy.add({
                 group: 'nodes',
                 data: {id: i + 1},
@@ -189,25 +217,78 @@
             }
         }
 
-        for (i = 0; i < number; i++)
+        for (let i = 0; i < number; i++)
         {
             var id = "nodeID" + (i+1);
             var inputNode = document.getElementById(id);
             var value = inputNode.value;
             var table = value.split(",");
-            for (j = 0; j < table.length; j++)
+            for (let j = 0; j < table.length; j++)
             {
                 if (table[j]!=0)
                     macierzSasiedztw[i][table[j] - 1] = 1;
             }
-
-            console.log(macierzSasiedztw);
         }
+
+        //alert(macierzSasiedztw);
 
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        rysujKrawedzi();
+        if(!checkGraph(macierzSasiedztw)) {
+            alert("ZŁA MACIERZ");
+        }
+        else {
+            console.log(macierzSasiedztw);
+            if(type === "0") {
+               if(checkEulerDirected(macierzSasiedztw)) {
+                   let cykle = DirectedHierholzer(macierzSasiedztw);
+
+                   for(let i=0; i<cykle.length; i++) {
+                       let cykl = cykle[i];
+                       cykl.pop();
+                       for(let j=0; j<cykl.length; j++) {
+                           cykl[j]++;
+                       }
+                   }
+
+                   console.log(cykle);
+
+                   rysujGrafWyjsciowy(cykle, 0);
+               }
+               else {
+                   alert("Podany graf nie jest grafem eulerowskim!");
+               }
+            }
+            else if(type === "1") {
+                try {
+                    if(checkEulerUndirected(macierzSasiedztw)) {
+                        let cykle = HierholzerND(macierzSasiedztw);
+
+                        for(let i=0; i<cykle.length; i++) {
+                            let cykl = cykle[i];
+                            cykl.pop();
+                            for(let j=0; j<cykl.length; j++) {
+                                cykl[j]++;
+                            }
+                        }
+
+                        console.log(cykle);
+
+                        rysujGrafWyjsciowy(cykle, 1);
+                    }
+                    else {
+                        alert("Podany graf nie jest grafem eulerowskim!");
+                    }
+                }
+                catch (e) {
+                    alert("Podano multigraf, program działa tylko dla grafów!");
+                }
+            }
+            else {
+                alert("Zły type!")
+            }
+        }
     }
 
     //type: 0 - skierowany, 1 - nieskierowany
@@ -217,7 +298,7 @@
         {
             for (j = 0; j < macierzSasiedztw.length; j++)
             {
-                if (macierzSasiedztw[i][j] == 1)
+                if (macierzSasiedztw[i][j] === 1)
                 {
                     cy.add({
                         group: 'edges',
@@ -234,7 +315,7 @@
 
     function rysujKrawedz(number)
     {
-        console.log(number);
+        //console.log(number);
         var id = "nodeID" + (number);
         var inputNode = document.getElementById(id);
         var value = inputNode.value;
@@ -252,8 +333,8 @@
         }
     }
 
-    var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
-    rysujGrafWyjsciowy(tabliczka, 0);
+    //var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
+    //rysujGrafWyjsciowy(tabliczka, 0);
 
     // type 0 - skierowany, 1- nieskierowany
     function rysujGrafWyjsciowy(tab, type)
@@ -264,7 +345,7 @@
                 style: [{
                     selector: 'node',
                     style: {
-                        'label': 'data(title)'
+                        'label': 'data(name)'
                     }
                 }]
             });
@@ -291,61 +372,110 @@
                     }]
             });
         }
-
-
-
+        let index = 0;
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
 
-            let cycleX = offsetX+distance*((i)%cols);
-            let cycleY = offsetY+distance*Math.floor((i)/cols);
+            let cycleX = offsetX + distanceX*((i)%cols);
+            let cycleY = offsetY + distanceY*Math.floor((i)/cols);
 
             let n = cycle.length;
-
             for (j = 0; j < n; j++)
             {
-                let posX = cycleX + calculatePosX(j, r, n);
-                let posY = cycleY + calculatePosY(j, r, n);
+                let posX = cycleX + calculatePosX(j, n);
+                let posY = cycleY + calculatePosY(j, n);
                 cy1.add({
                     group: 'nodes',
                     data: {
-                        id: "n" + i + cycle[j],
-                        name: cycle[j]},
+                        id: "n" + i + ',' + cycle[j] + ',' + index,
+                        name: cycle[j]
+                    },
                     position: {x: posX, y: posY },
                 });
+                index++;
             }
         }
-
+        index = 0;
         for (i = 0; i < tab.length; i++)
         {
             var cycle = tab[i];
             for (j = 0; j < cycle.length; j++)
             {
                 var nodeS = cycle[j];
-                if (j == cycle.length - 1)
+                let targetIndex;
+
+                if (j === cycle.length - 1) {
                     var nodeE = cycle[0];
-                else
+                    targetIndex = index - cycle.length+1;
+                }
+                else {
                     var nodeE = cycle[j+1];
+                    targetIndex = index+1;
+                }
 
                 cy1.add({
                     group: 'edges',
                     data: {
-                        id: 'e'+nodeS+nodeE,
-                        source: "n" + i + nodeS,
-                        target: "n" + i + nodeE, },
+                        id: 'e' + nodeS+ ',' + nodeE + ',' + index,
+                        source: "n" + i + ',' + nodeS + ',' + index,
+                        target: "n" + i + ','+  nodeE + ',' + targetIndex, },
                 });
+                index++;
             }
         }
     }
-    function calculatePosX(index, r, n) {
+    function calculatePosX(index, n) {
+        let r = calculateR(n);
         let angle = (index*2*Math.PI)/n;
         return Math.sin(angle) * r;
     }
-    function calculatePosY(index, r, n) {
+    function calculatePosY(index, n) {
+        let r = calculateR(n);
         let angle = (index*2*Math.PI)/n;
         return Math.cos(angle) * r;
     }
+    function calculateR(n) {
+        let r = 0;
+
+        n = parseInt(n);
+
+        switch(n) {
+            case 1:
+                r = 0;
+                break;
+            case 2:
+                r = 40;
+                break;
+            case 3:
+                r = 60;
+                break;
+            case 4:
+                r = 65;
+                break;
+            case 5:
+                r = 70;
+                break;
+            case 6:
+                r = 80;
+                break;
+            case 7:
+                r = 90;
+                break;
+            case 8:
+                r = 100;
+                break;
+            case 9:
+                r = 120;
+                break;
+            default:
+                r = 120;
+                break;
+        }
+
+        return r;
+    }
+
     function addEventListenerOut(elem, arg) 
     {
         elem.addEventListener('focusout', function (e)
@@ -353,7 +483,7 @@
             var doc = document.getElementById("nodeID" + arg);
             var value = doc.value;
             cy.remove(cy.elements('edge[source = "'+arg+'"]'));
-            if (value != 0)
+            if (value !== 0)
             {
                 rysujKrawedz(arg);
             }
