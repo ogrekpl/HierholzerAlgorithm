@@ -212,7 +212,7 @@
             }
         }
 
-        alert(macierzSasiedztw);
+        //alert(macierzSasiedztw);
 
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
@@ -385,17 +385,23 @@
             for (j = 0; j < cycle.length; j++)
             {
                 var nodeS = cycle[j];
-                if (j === cycle.length - 1)
+                let targetIndex;
+
+                if (j === cycle.length - 1) {
                     var nodeE = cycle[0];
-                else
+                    targetIndex = index - cycle.length+1;
+                }
+                else {
                     var nodeE = cycle[j+1];
+                    targetIndex = index+1;
+                }
 
                 cy1.add({
                     group: 'edges',
                     data: {
                         id: 'e' + nodeS+ ',' + nodeE + ',' + index,
                         source: "n" + i + ',' + nodeS + ',' + index,
-                        target: "n" + i + ','+  nodeE + ',' + (index+1), },
+                        target: "n" + i + ','+  nodeE + ',' + targetIndex, },
                 });
                 index++;
             }
