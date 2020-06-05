@@ -51,8 +51,9 @@
         // Stałe do ustawiania cyklów
         const cols = 3;
         const offsetX = 100;
-        const offsetY = 140;
-        const distance = 150;
+        const offsetY = 100;
+        const distanceX = 150;
+        const distanceY = 180;
 
 
         function onLoad()
@@ -359,8 +360,8 @@
         {
             var cycle = tab[i];
 
-            let cycleX = offsetX+distance*((i)%cols);
-            let cycleY = offsetY+distance*Math.floor((i)/cols);
+            let cycleX = offsetX + distanceX*((i)%cols);
+            let cycleY = offsetY + distanceY*Math.floor((i)/cols);
 
             let n = cycle.length;
             for (j = 0; j < n; j++)
@@ -439,19 +440,19 @@
                 r = 70;
                 break;
             case 6:
-                r = 75;
-                break;
-            case 7:
                 r = 80;
                 break;
-            case 8:
-                r = 85;
-                break;
-            case 9:
+            case 7:
                 r = 90;
                 break;
-            default:
+            case 8:
                 r = 100;
+                break;
+            case 9:
+                r = 120;
+                break;
+            default:
+                r = 120;
                 break;
         }
 
