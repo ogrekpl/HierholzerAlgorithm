@@ -89,13 +89,13 @@
             <div class="col-6 .col-md-4" style="float: left; text-align: center">
                 <div class="form-group">
                     <label for="sel1">Wybierz typ grafu:</label>
-                    <select class="form-control" id="sel1">
+                    <select class="form-control" id="sel1" onchange="onGraphChangeType(this)">
                         <option value="0">Skierowany</option>
                         <option value="1">Nieskierowany</option>
                     </select>
                     <BR>
                     Podaj liczbę wierchołków:
-                    <input type="number" id="nodesNumber" style="max-width: 40px"/>
+                    <input type="number" id="nodesNumber" value="0" style="max-width: 40px"/>
                     <div><button type="button" class="btn btn-success" id="graphButtonSuccess" onclick="addFieldsAndNodes()">Wybierz</button></div>
                     <BR>
                     <div id="nodesInput">
@@ -150,40 +150,7 @@
             document.getElementById("nodesButtonSucces").hidden = true;
 
         // Dodawanie wierchołków wyswietlanego grafu
-        if (type == 1)
-        {
-              cy = cytoscape({
-                container: document.getElementById('grafInput'),
-                style: [{
-                    selector: 'node',
-                    style: {
-                        'label': 'data(id)'
-                    }
-                }]
-            });
-        }
-        else
-        {
-              cy = cytoscape({
-                container: document.getElementById('grafInput'),
-                style: [{
-                    selector: 'node',
-                    style: {
-                        'label': 'data(id)'
-                    }
-                },
-                    {
-                        selector: 'edge',
-                        style: {
-                            'width': 3,
-                            'line-color': '#ccc',
-                            'target-arrow-color': '#ccc',
-                            'target-arrow-shape': 'triangle',
-                            'curve-style': 'bezier'
-                        }
-                    }]
-            });
-        }
+        cyTypeSet(type);
 
         for (i = 0; i < number; i++)
         {
@@ -332,9 +299,6 @@
             });
         }
     }
-
-    //var tabliczka = [[1,3,5], [2,4], [1,7,8,9,3]];
-    //rysujGrafWyjsciowy(tabliczka, 0);
 
     // type 0 - skierowany, 1- nieskierowany
     function rysujGrafWyjsciowy(tab, type)
@@ -489,6 +453,59 @@
             }
 
         }, false);
+    }
+
+    function onGraphChangeType(obj)
+    {
+        var value = obj.value;
+        cyTypeSet(value);
+        var container = document.getElementById("nodesInput");
+        while (container.hasChildNodes())
+        {
+            container.removeChild(container.lastChild);
+        }
+        var input = document.getElementById("nodesNumber");
+        input.value = 0;
+        var nodesButtonSucces = document.getElementById("nodesButtonSucces");
+        nodesButtonSucces.hidden = true;
+    }
+
+    function cyTypeSet(type)
+    {
+        if (type == 1)
+        {
+            cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                }]
+            });
+        }
+        else
+        {
+            cy = cytoscape({
+                container: document.getElementById('grafInput'),
+                style: [{
+                    selector: 'node',
+                    style: {
+                        'label': 'data(id)'
+                    }
+                },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }]
+            });
+        }
     }
 
 </script>
