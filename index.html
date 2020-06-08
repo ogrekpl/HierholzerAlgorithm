@@ -447,7 +447,7 @@
             var doc = document.getElementById("nodeID" + arg);
             var value = doc.value;
             cy.remove(cy.elements('edge[source = "'+arg+'"]'));
-            if (value !== 0)
+            if (value !== "")
             {
                 rysujKrawedz(arg);
             }
