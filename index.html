@@ -22,6 +22,7 @@
             background-color: white;
             border: black solid thin;
             float: left;
+            margin-bottom: 5px;
         }
         #grafOutput
         {
@@ -95,7 +96,7 @@
                     </select>
                     <BR>
                     Podaj liczbę wierchołków:
-                    <input type="number" id="nodesNumber" value="0" style="max-width: 40px"/>
+                    <input type="number" id="nodesNumber" value="0" min="0" max="50" style="max-width: 40px"/>
                     <div><button type="button" class="btn btn-success" id="graphButtonSuccess" onclick="addFieldsAndNodes()">Wybierz</button></div>
                     <BR>
                     <div id="nodesInput">
@@ -109,13 +110,16 @@
             </div>
         </div>
         <div class="col-sm-6 .col-lg-8" style="float: left">
-            <div id="grafInput"></div>
-            <div id ="grafOutput"></div>
+            <div><center><h5>Graf wejściowy</h5></center></div>
+            <div id="grafInput" style="margin-bot: 10px"></div>
+            <div><h5><center>Rozkład na cykle</center></h5></div>
+            <div id ="grafOutput" style="float: left"></div>
         </div>
     </div>
 
 <script>
     var cy = null;
+    var cy1 = null;
     var macierzSasiedztw = null;
     function addFieldsAndNodes()
     {
@@ -258,28 +262,6 @@
         }
     }
 
-    //type: 0 - skierowany, 1 - nieskierowany
-    function rysujKrawedzi()
-    {
-        for (i = 0; i < macierzSasiedztw.length; i++)
-        {
-            for (j = 0; j < macierzSasiedztw.length; j++)
-            {
-                if (macierzSasiedztw[i][j] === 1)
-                {
-                    cy.add({
-                        group: 'edges',
-                        data: {
-                            id: 'e'+i+j,
-                            source: i+1,
-                            target: j+1
-                        }
-                    });
-                }
-            }
-        }
-    }
-
     function rysujKrawedz(number)
     {
         //console.log(number);
@@ -304,7 +286,7 @@
     function rysujGrafWyjsciowy(tab, type)
     {
         if (type == 1) {
-            var cy1 = cytoscape({
+             cy1 = cytoscape({
                 container: document.getElementById('grafOutput'),
                 style: [{
                     selector: 'node',
@@ -316,7 +298,7 @@
         }
         else
         {
-            var cy1 = cytoscape({
+             cy1 = cytoscape({
                 container: document.getElementById('grafOutput'),
                 style: [{
                     selector: 'node',
@@ -454,7 +436,6 @@
 
         }, false);
     }
-
     function onGraphChangeType(obj)
     {
         var value = obj.value;
@@ -468,6 +449,9 @@
         input.value = 0;
         var nodesButtonSucces = document.getElementById("nodesButtonSucces");
         nodesButtonSucces.hidden = true;
+
+        if (cy1 != null)
+            cy1.destroy();
     }
 
     function cyTypeSet(type)
