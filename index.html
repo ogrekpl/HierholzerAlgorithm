@@ -21,7 +21,6 @@
             display: block;
             background-color: white;
             border: black solid thin;
-            float: left;
             margin-bottom: 5px;
         }
         #grafOutput
@@ -31,7 +30,6 @@
             display: block;
             background-color: white;
             border: black solid thin;
-            float: left;
         }
         body
         {
@@ -67,7 +65,6 @@
 <body onload="onLoad()">
     <div id="container">
         <center><h1>Rozkład grafu eulerowskiego na sumę cykli</h1></center>
-    </hr>
         <div class="col-6 .col-lg-4" style="float: left">
             <div class="col-6 .col-md-4" style="float: left; text-align: justify">
                 <h4>Wstęp</h4>
@@ -105,14 +102,12 @@
                     <BR>
                     <button type="button" class="btn btn-success" id="nodesButtonSucces" onclick="LoadGraph()">Zatwierdź</button>
                 </div>
-
-
             </div>
         </div>
         <div class="col-sm-6 .col-lg-8" style="float: left">
-            <div><center><h5>Graf wejściowy</h5></center></div>
+            <div style="clear: both"><center><h5>Graf wejściowy</h5></center></div>
             <div id="grafInput" style="margin-bot: 10px"></div>
-            <div><h5><center>Rozkład na cykle</center></h5></div>
+            <div style="clear: both"><h5><center>Rozkład na cykle</center></h5></div>
             <div id ="grafOutput" style="float: left"></div>
         </div>
     </div>
