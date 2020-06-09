@@ -68,8 +68,6 @@ function checkConnected(G) {
 
     DFS(G, visited, 0);
 
-    console.log(visited);
-
     for(let i = 0; i < n; i++) {
         if(!visited[i]) {
             return false;
