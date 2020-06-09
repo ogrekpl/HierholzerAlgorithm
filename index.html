@@ -127,6 +127,11 @@
     function addFieldsAndNodes()
     {
         var number = document.getElementById("nodesNumber").value;
+        if(number > 50) {
+            document.getElementById("nodesNumber").value = 50;
+            number = 50;
+        }
+
         var type = document.getElementById("sel1").value;
         var container = document.getElementById("nodesInput");
         while (container.hasChildNodes())
