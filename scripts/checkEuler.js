@@ -43,7 +43,7 @@ function checkGraph(G) {
 
     let n = width;
     // If the array contains any non numeric or negative values, it's not valid
-    for(let i=0; i < n; i++) {
+    for(let i = 0; i < n; i++) {
         for(let j=0; j < n; j++) {
             if(isNaN(G[i][j]) || G[i][j] < 0) {
                 return false;
@@ -52,6 +52,48 @@ function checkGraph(G) {
     }
 
     return true;
+}
+
+/**
+ * Checks if G is a represents a connected graph
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @return bool is G a connected graph
+ */
+function checkConnected(G) {
+    let n = G.length;
+
+    // Initiate visited array
+    let visited = [];
+    for(let i = 0; i < n; i++) visited[i] = false;
+
+    DFS(G, visited, 0);
+
+    console.log(visited);
+
+    for(let i = 0; i < n; i++) {
+        if(!visited[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Depth-first search
+ * @param G 2 dimensional array holding the adjacency matrix
+ * @param visited array of bools that mark visited vertices
+ * @param start first vertex to visit
+ */
+function DFS(G, visited, start) {
+    visited[start] = true;
+    let n = G.length;
+
+    for(let i = 0; i < n; i++) {
+        if(G[start][i] > 0 && !visited[i]) {
+            DFS(G, visited, i);
+        }
+    }
 }
 
 /**

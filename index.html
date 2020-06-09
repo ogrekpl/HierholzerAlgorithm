@@ -210,64 +210,68 @@
             }
         }
 
-        //alert(macierzSasiedztw);
+        // Sprawdzamy czy graf jest poprawny
+        if(!checkGraph(macierzSasiedztw)) {
+            alert("ZŁA MACIERZ");
+            return;
+        }
+
+        // Sprawdzamy czy graf jest spojny
+        if(!checkConnected(macierzSasiedztw)) {
+            alert("Graf musi być spójny!");
+            return;
+        }
 
         // 0 - skierowany, 1 - nieskierowany
         var type = document.getElementById("sel1").value;
 
-        if(!checkGraph(macierzSasiedztw)) {
-            alert("ZŁA MACIERZ");
+        if(type === "0") {
+           if(checkEulerDirected(macierzSasiedztw)) {
+               let cykle = DirectedHierholzer(macierzSasiedztw);
+
+               for(let i=0; i<cykle.length; i++) {
+                   let cykl = cykle[i];
+                   cykl.pop();
+                   for(let j=0; j<cykl.length; j++) {
+                       cykl[j]++;
+                   }
+               }
+
+               console.log(cykle);
+
+               rysujGrafWyjsciowy(cykle, 0);
+           }
+           else {
+               alert("Podany graf nie jest grafem eulerowskim!");
+           }
+        }
+        else if(type === "1") {
+            try {
+                if(checkEulerUndirected(macierzSasiedztw)) {
+                    let cykle = HierholzerND(macierzSasiedztw);
+
+                    for(let i=0; i<cykle.length; i++) {
+                        let cykl = cykle[i];
+                        cykl.pop();
+                        for(let j=0; j<cykl.length; j++) {
+                            cykl[j]++;
+                        }
+                    }
+
+                    console.log(cykle);
+
+                    rysujGrafWyjsciowy(cykle, 1);
+                }
+                else {
+                    alert("Podany graf nie jest grafem eulerowskim!");
+                }
+            }
+            catch (e) {
+                alert("Podano multigraf, program działa tylko dla grafów!");
+            }
         }
         else {
-            console.log(macierzSasiedztw);
-            if(type === "0") {
-               if(checkEulerDirected(macierzSasiedztw)) {
-                   let cykle = DirectedHierholzer(macierzSasiedztw);
-
-                   for(let i=0; i<cykle.length; i++) {
-                       let cykl = cykle[i];
-                       cykl.pop();
-                       for(let j=0; j<cykl.length; j++) {
-                           cykl[j]++;
-                       }
-                   }
-
-                   console.log(cykle);
-
-                   rysujGrafWyjsciowy(cykle, 0);
-               }
-               else {
-                   alert("Podany graf nie jest grafem eulerowskim!");
-               }
-            }
-            else if(type === "1") {
-                try {
-                    if(checkEulerUndirected(macierzSasiedztw)) {
-                        let cykle = HierholzerND(macierzSasiedztw);
-
-                        for(let i=0; i<cykle.length; i++) {
-                            let cykl = cykle[i];
-                            cykl.pop();
-                            for(let j=0; j<cykl.length; j++) {
-                                cykl[j]++;
-                            }
-                        }
-
-                        console.log(cykle);
-
-                        rysujGrafWyjsciowy(cykle, 1);
-                    }
-                    else {
-                        alert("Podany graf nie jest grafem eulerowskim!");
-                    }
-                }
-                catch (e) {
-                    alert("Podano multigraf, program działa tylko dla grafów!");
-                }
-            }
-            else {
-                alert("Zły type!")
-            }
+            alert("Zły type!")
         }
     }
 
