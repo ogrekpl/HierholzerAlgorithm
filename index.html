@@ -77,7 +77,7 @@
             <div class="col-6 .col-md-4" style="float: left; text-align: justify">
                 <h4>Wstęp</h4>
                 <p>Graf eulerowski, to taki graf, w którym da się skonstruować cykl Eulera, czyli ścieżkę, która przechodzi przez wszystkie krawędzie dokładnie raz
-                i kończy się w tym samym wierzchołku, w którm się rozpoczęła.</p>
+                i kończy się w tym samym wierzchołku, w którym się rozpoczęła.</p>
                 <p>Cechą charakterystyczną cyklu Eulera jest możliwość rozłożenia na sumę cykli prostych o rozłącznych krawędziach.</p>
 
                 <h4>Instrukcja</h4>
@@ -126,6 +126,9 @@
     var macierzSasiedztw = null;
     function addFieldsAndNodes()
     {
+        if (cy1 != null)
+            cy1.destroy();
+
         var number = document.getElementById("nodesNumber").value;
         if(number > 50) {
             document.getElementById("nodesNumber").value = 50;
@@ -212,12 +215,16 @@
 
         // Sprawdzamy czy graf jest poprawny
         if(!checkGraph(macierzSasiedztw)) {
+            if (cy1 != null)
+                cy1.destroy();
             alert("Niepoprawnie zdefiniowany graf");
             return;
         }
 
         // Sprawdzamy czy graf jest spojny
         if(!checkConnected(macierzSasiedztw)) {
+            if (cy1 != null)
+                cy1.destroy();
             alert("Graf musi być spójny!");
             return;
         }
